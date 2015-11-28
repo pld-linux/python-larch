@@ -74,17 +74,14 @@ rm -rf build
 %{__make} check
 %endif
 
-%{__python} setup.py build
+%py_build
 
 # Build documentation
 %{__make}
 
 %install
 rm -rf $RPM_BUILD_ROOT
-%{__python} setup.py install \
-	--skip-build \
-	--optimize=2 \
-	--root=$RPM_BUILD_ROOT
+%py_install
 
 # drop internal tests
 %{__rm} $RPM_BUILD_ROOT%{py_sitescriptdir}/larch/*_tests.py*
