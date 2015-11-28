@@ -6,7 +6,7 @@
 Summary:	Python B-tree library
 Name:		python-%{module}
 Version:	1.20130808
-Release:	1
+Release:	2
 License:	GPL v3+
 Group:		Libraries/Python
 Source0:	http://code.liw.fi/debian/pool/main/p/python-%{module}/%{name}_%{version}.orig.tar.gz
