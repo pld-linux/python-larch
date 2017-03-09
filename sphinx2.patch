@@ -1,0 +1,11 @@
+--- python-larch-1.20151025/doc/Makefile~	2015-10-25 11:32:45.000000000 +0100
++++ python-larch-1.20151025/doc/Makefile	2017-03-09 22:23:04.499113444 +0100
+@@ -3,7 +3,7 @@
+ 
+ # You can set these variables from the command line.
+ SPHINXOPTS    =
+-SPHINXBUILD   = sphinx-build
++SPHINXBUILD   = sphinx-build-2
+ PAPER         =
+ BUILDDIR      = _build
+ 

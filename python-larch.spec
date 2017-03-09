@@ -2,21 +2,23 @@
 # Conditional build:
 %bcond_without	tests	# do not perform "make test"
 
-%define 	module	larch
+%define		module	larch
 Summary:	Python B-tree library
 Name:		python-%{module}
-Version:	1.20130808
-Release:	2
+Version:	1.20151025
+Release:	1
 License:	GPL v3+
 Group:		Libraries/Python
-Source0:	http://code.liw.fi/debian/pool/main/p/python-%{module}/%{name}_%{version}.orig.tar.gz
-# Source0-md5:	9132c891a508d836c39d2ac3a6b7c2f6
+Source0:	http://code.liw.fi/debian/pool/main/p/python-%{module}/%{name}_%{version}.orig.tar.xz
+# Source0-md5:	1c7dd2ed0bfc377ad04694e7ddb4164b
+Patch0:		make-tests.patch
+Patch1:		sphinx2.patch
 URL:		http://liw.fi/larch/
 BuildRequires:	rpm-pythonprov
 BuildRequires:	rpmbuild(macros) >= 1.710
 # build-time only
 BuildRequires:	cmdtest
-BuildRequires:	python-Sphinx
+BuildRequires:	sphinx-pdg-2
 BuildRequires:	python-coverage-test-runner
 # build- and run-time
 BuildRequires:	python-cliapp
@@ -64,7 +66,9 @@ This package contains the documentation for %{module}, a Python
 framework for Unix command line programs.
 
 %prep
-%setup -q -n %{module}-%{version}
+%setup -q
+%patch0 -p1
+%patch1 -p1
 
 %build
 %if %{with tests}
@@ -77,20 +81,20 @@ rm -rf build
 %py_build
 
 # Build documentation
-%{__make}
+%{__make} PYTHONPATH=$(pwd)
 
 %install
 rm -rf $RPM_BUILD_ROOT
 %py_install
 
+# manpage not installed automatically yet
+install -d $RPM_BUILD_ROOT%{_mandir}/man1
+cp -p fsck-larch.1 $RPM_BUILD_ROOT%{_mandir}/man1
+
 # drop internal tests
 %{__rm} $RPM_BUILD_ROOT%{py_sitescriptdir}/larch/*_tests.py*
 
 %py_postclean
-
-# manpage not installed automatically yet
-install -d $RPM_BUILD_ROOT%{_mandir}/man1
-cp -p fsck-larch.1 $RPM_BUILD_ROOT%{_mandir}/man1
 
 %clean
 rm -rf $RPM_BUILD_ROOT

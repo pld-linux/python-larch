@@ -1,0 +1,11 @@
+--- python-larch-1.20151025/Makefile~	2015-10-25 11:32:45.000000000 +0100
++++ python-larch-1.20151025/Makefile	2017-03-09 21:59:45.078426799 +0100
+@@ -23,7 +23,7 @@
+ 
+ check:
+ 	python -m CoverageTestRunner --ignore-missing-from=without-tests
+-	rm .coverage
++	rm -f .coverage
+ 	./insert-remove-test tempdir 100
+ 	rm -r tempdir larch.log
+ 	cmdtest tests
